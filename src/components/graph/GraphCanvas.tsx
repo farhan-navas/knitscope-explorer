@@ -187,8 +187,8 @@ export function GraphCanvas() {
     // Add node shapes based on type
     node.each(function(d) {
       const selection = d3.select(this);
-      const isSelected = selectedNodes.has(d.id);
-      const isHighlighted = highlightedNodes.has(d.id);
+      const isSelected = selectedNodes?.has(d.id) || false;
+      const isHighlighted = highlightedNodes?.has(d.id) || false;
       
       const strokeColor = isSelected ? "hsl(250, 84%, 54%)" : "hsl(var(--border))";
       const strokeWidth = isSelected ? 4 : 2;

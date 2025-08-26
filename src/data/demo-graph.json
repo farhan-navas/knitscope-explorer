@@ -1,0 +1,73 @@
+{
+  "types": [
+    {"id": "com.example.User", "module": "app", "package": "com.example"},
+    {"id": "com.example.UserRepository", "module": "data", "package": "com.example.data"},
+    {"id": "com.example.UserService", "module": "service", "package": "com.example.service"},
+    {"id": "kotlin.String", "package": "kotlin"},
+    {"id": "kotlin.Int", "package": "kotlin"},
+    {"id": "com.example.Database", "module": "data", "package": "com.example.data"},
+    {"id": "com.example.Logger", "module": "core", "package": "com.example.core"},
+    {"id": "com.example.Config", "module": "core", "package": "com.example.core"},
+    {"id": "com.example.Validator", "module": "validation", "package": "com.example.validation"},
+    {"id": "com.example.EmailService", "module": "notification", "package": "com.example.notification"}
+  ],
+  "providers": [
+    {"id": "User.<init>", "type": "com.example.User", "owner": "com.example.User", "module": "app", "requires": ["kotlin.String", "kotlin.Int"]},
+    {"id": "UserRepository.<init>", "type": "com.example.UserRepository", "owner": "com.example.UserRepository", "module": "data", "requires": ["com.example.Database", "com.example.Logger"]},
+    {"id": "UserService.<init>", "type": "com.example.UserService", "owner": "com.example.UserService", "module": "service", "requires": ["com.example.UserRepository", "com.example.Validator", "com.example.EmailService"]},
+    {"id": "Database.<init>", "type": "com.example.Database", "owner": "com.example.Database", "module": "data", "requires": ["com.example.Config"]},
+    {"id": "Logger.<init>", "type": "com.example.Logger", "owner": "com.example.Logger", "module": "core", "requires": []},
+    {"id": "Config.<init>", "type": "com.example.Config", "owner": "com.example.Config", "module": "core", "requires": []},
+    {"id": "Validator.<init>", "type": "com.example.Validator", "owner": "com.example.Validator", "module": "validation", "requires": ["com.example.Logger"]},
+    {"id": "EmailService.<init>", "type": "com.example.EmailService", "owner": "com.example.EmailService", "module": "notification", "requires": ["com.example.Config", "com.example.Logger"]},
+    {"id": "UserService.getName", "type": "kotlin.String", "owner": "com.example.UserService", "module": "service", "requires": []},
+    {"id": "UserService.getId", "type": "kotlin.Int", "owner": "com.example.UserService", "module": "service", "requires": []}
+  ],
+  "consumers": [
+    {"id": "UserService.userRepository", "needs": "com.example.UserRepository", "owner": "com.example.UserService", "module": "service"},
+    {"id": "UserService.validator", "needs": "com.example.Validator", "owner": "com.example.UserService", "module": "service"},
+    {"id": "UserService.emailService", "needs": "com.example.EmailService", "owner": "com.example.UserService", "module": "service"},
+    {"id": "UserRepository.database", "needs": "com.example.Database", "owner": "com.example.UserRepository", "module": "data"},
+    {"id": "UserRepository.logger", "needs": "com.example.Logger", "owner": "com.example.UserRepository", "module": "data"},
+    {"id": "Database.config", "needs": "com.example.Config", "owner": "com.example.Database", "module": "data"},
+    {"id": "Validator.logger", "needs": "com.example.Logger", "owner": "com.example.Validator", "module": "validation"},
+    {"id": "EmailService.config", "needs": "com.example.Config", "owner": "com.example.EmailService", "module": "notification"},
+    {"id": "EmailService.logger", "needs": "com.example.Logger", "owner": "com.example.EmailService", "module": "notification"}
+  ],
+  "edges": [
+    {"from": "User.<init>", "to": "com.example.User", "kind": "provides"},
+    {"from": "User.<init>", "to": "kotlin.String", "kind": "requires"},
+    {"from": "User.<init>", "to": "kotlin.Int", "kind": "requires"},
+    
+    {"from": "UserRepository.<init>", "to": "com.example.UserRepository", "kind": "provides"},
+    {"from": "UserRepository.database", "to": "com.example.Database", "kind": "needs"},
+    {"from": "UserRepository.logger", "to": "com.example.Logger", "kind": "needs"},
+    
+    {"from": "UserService.<init>", "to": "com.example.UserService", "kind": "provides"},
+    {"from": "UserService.userRepository", "to": "com.example.UserRepository", "kind": "needs"},
+    {"from": "UserService.validator", "to": "com.example.Validator", "kind": "needs"},
+    {"from": "UserService.emailService", "to": "com.example.EmailService", "kind": "needs"},
+    {"from": "UserService.getName", "to": "kotlin.String", "kind": "provides"},
+    {"from": "UserService.getId", "to": "kotlin.Int", "kind": "provides"},
+    
+    {"from": "Database.<init>", "to": "com.example.Database", "kind": "provides"},
+    {"from": "Database.config", "to": "com.example.Config", "kind": "needs"},
+    
+    {"from": "Logger.<init>", "to": "com.example.Logger", "kind": "provides"},
+    
+    {"from": "Config.<init>", "to": "com.example.Config", "kind": "provides"},
+    
+    {"from": "Validator.<init>", "to": "com.example.Validator", "kind": "provides"},
+    {"from": "Validator.logger", "to": "com.example.Logger", "kind": "needs"},
+    
+    {"from": "EmailService.<init>", "to": "com.example.EmailService", "kind": "provides"},
+    {"from": "EmailService.config", "to": "com.example.Config", "kind": "needs"},
+    {"from": "EmailService.logger", "to": "com.example.Logger", "kind": "needs"}
+  ],
+  "metrics": {
+    "generatedAt": "2025-08-27T00:00:00Z",
+    "moduleCount": 5,
+    "nodeCount": 19,
+    "edgeCount": 21
+  }
+}

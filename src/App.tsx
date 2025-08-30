@@ -7,7 +7,6 @@ import { ThemeProvider } from "next-themes";
 import { AppLayout } from "./components/layout/AppLayout";
 import Index from "./pages/Index";
 import GraphExplorer from "./pages/GraphExplorer";
-import GraphExplorerFromCLI from "./pages/GraphExplorerFromCLI";
 import Analysis from "./pages/Analysis";
 import Compare from "./pages/Compare";
 import Report from "./pages/Report";
@@ -26,7 +25,6 @@ const App = () => (
             <Route path="/" element={<AppLayout />}>
               <Route index element={<Index />} />
               <Route path="graph" element={<GraphExplorer />} />
-              <Route path="graphcli" element={<GraphExplorerFromCLI />} />
               <Route path="analysis" element={<Analysis />} />
               <Route path="compare" element={<Compare />} />
               <Route path="report" element={<Report />} />

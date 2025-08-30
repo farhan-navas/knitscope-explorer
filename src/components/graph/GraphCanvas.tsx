@@ -28,33 +28,33 @@ interface D3Link extends d3.SimulationLinkDatum<D3Node> {
 
 export function GraphCanvas() {
   const svgRef = useRef<SVGSVGElement>(null);
-  const {
-    currentGraph,
-    filters,
-    selectedNodes,
+  const { 
+    currentGraph, 
+    filters, 
+    selectedNodes, 
     toggleNodeSelection
   } = useGraphStore();
-
+  
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(new Set());
-
+  
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const container = svgRef.current?.parentElement;
-  //     if (container) {
-  //       setDimensions({
-  //         width: container.clientWidth,
-  //         height: container.clientHeight
-  //       });
-  //     }
-  //   };
-  //
-  //   handleResize();
-  //   window.addEventListener('resize', handleResize);
-  //   return () => window.removeEventListener('resize', handleResize);
-  // }, []);
-  //
+  useEffect(() => {
+    const handleResize = () => {
+      const container = svgRef.current?.parentElement;
+      if (container) {
+        setDimensions({
+          width: container.clientWidth,
+          height: container.clientHeight
+        });
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     if (!currentGraph || !svgRef.current) return;
 
@@ -67,22 +67,22 @@ export function GraphCanvas() {
       if (filters.searchTerm && !node.label.toLowerCase().includes(filters.searchTerm.toLowerCase())) {
         return false;
       }
-
+      
       // Node kind filter
       if (!filters.nodeKinds.has(node.kind)) {
         return false;
       }
-
+      
       // Module filter
       if (filters.modules.size > 0 && node.module && !filters.modules.has(node.module)) {
         return false;
       }
-
+      
       // Package filter
       if (filters.packages.size > 0 && node.package && !filters.packages.has(node.package)) {
         return false;
       }
-
+      
       return true;
     });
 
@@ -92,7 +92,7 @@ export function GraphCanvas() {
       if (!filters.edgeKinds.has(edge.kind)) {
         return false;
       }
-
+      
       // Only include edges where both nodes are visible
       return filteredNodeIds.has(edge.source) && filteredNodeIds.has(edge.target);
     });
@@ -113,11 +113,11 @@ export function GraphCanvas() {
 
     // Set up SVG
     svg.attr("width", dimensions.width)
-      .attr("height", dimensions.height);
+       .attr("height", dimensions.height);
 
     // Add zoom behavior
     const g = svg.append("g");
-
+    
     const zoom = d3.zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.1, 3])
       .on("zoom", (event) => {
@@ -126,20 +126,16 @@ export function GraphCanvas() {
 
     svg.call(zoom);
 
-    // Static positioning - no simulation needed
-    const cols = Math.ceil(Math.sqrt(nodes.length));
-    nodes.forEach((node, i) => {
-      const row = Math.floor(i / cols);
-      const col = i % cols;
-      node.x = (col + 1) * (dimensions.width / (cols + 1));
-      node.y = (row + 1) * (dimensions.height / (Math.ceil(nodes.length / cols) + 1));
-      node.fx = node.x; // Fix position
-      node.fy = node.y; // Fix position
-    });
+    // Create simulation
+    const simulation = d3.forceSimulation<D3Node>(nodes)
+      .force("link", d3.forceLink<D3Node, D3Link>(links).id(d => d.id).distance(100))
+      .force("charge", d3.forceManyBody().strength(-300))
+      .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
+      .force("collision", d3.forceCollide().radius(35));
 
     // Add arrow markers for different edge types
     const defs = svg.append("defs");
-
+    
     const arrowColors = {
       provides: "hsl(142, 76%, 36%)",
       requires: "hsl(24, 70%, 50%)",
@@ -150,11 +146,11 @@ export function GraphCanvas() {
       defs.append("marker")
         .attr("id", `arrow-${kind}`)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 35)
+        .attr("refX", 25)
         .attr("refY", 0)
         .attr("orient", "auto")
-        .attr("markerWidth", 8)
-        .attr("markerHeight", 8)
+        .attr("markerWidth", 6)
+        .attr("markerHeight", 6)
         .append("path")
         .attr("d", "M0,-5L10,0L0,5")
         .attr("fill", color);
@@ -162,7 +158,7 @@ export function GraphCanvas() {
 
     // Draw edges
     const linkGroup = g.append("g").attr("class", "links");
-
+    
     const link = linkGroup.selectAll("line")
       .data(links)
       .enter().append("line")
@@ -174,12 +170,16 @@ export function GraphCanvas() {
 
     // Draw nodes
     const nodeGroup = g.append("g").attr("class", "nodes");
-
+    
     const node = nodeGroup.selectAll("g")
       .data(nodes)
       .enter().append("g")
       .attr("class", "node")
       .style("cursor", "pointer")
+      .call(d3.drag<SVGGElement, D3Node>()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended))
       .on("click", handleNodeClick)
       .on("mouseenter", handleNodeMouseEnter)
       .on("mouseleave", handleNodeMouseLeave);
@@ -189,40 +189,32 @@ export function GraphCanvas() {
       const selection = d3.select(this);
       const isSelected = selectedNodes?.has(d.id) || false;
       const isHighlighted = highlightedNodes?.has(d.id) || false;
-
+      
       const strokeColor = isSelected ? "hsl(250, 84%, 54%)" : "hsl(var(--border))";
       const strokeWidth = isSelected ? 4 : 2;
       const opacity = isHighlighted ? 1 : 0.9;
-
-      // Calculate text dimensions for sizing nodes
-      const textLength = d.label.length * 8; // Approximate character width
-      const minWidth = Math.max(textLength + 20, 80); // Minimum padding + text width
-      const minHeight = 40;
-
+      
       if (d.kind === "type") {
-        const radius = Math.max(minWidth / 2, 30);
         selection.append("circle")
-          .attr("r", radius)
+          .attr("r", 25)
           .attr("fill", "hsl(250, 84%, 54%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
           .attr("opacity", opacity);
       } else if (d.kind === "provider") {
         selection.append("rect")
-          .attr("width", minWidth)
-          .attr("height", minHeight)
-          .attr("x", -minWidth/2)
-          .attr("y", -minHeight/2)
+          .attr("width", 50)
+          .attr("height", 30)
+          .attr("x", -25)
+          .attr("y", -15)
           .attr("rx", 5)
           .attr("fill", "hsl(142, 76%, 36%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
           .attr("opacity", opacity);
       } else if (d.kind === "consumer") {
-        const width = minWidth;
-        const height = minHeight;
         selection.append("path")
-          .attr("d", `M-${width/2},-${height/2} L${width/2-10},-${height/2} L${width/2},0 L${width/2-10},${height/2} L-${width/2},${height/2} L-${width/2+10},0 Z`)
+          .attr("d", "M-25,-15 L20,-15 L25,0 L20,15 L-25,15 L-20,0 Z")
           .attr("fill", "hsl(24, 70%, 50%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
@@ -234,12 +226,11 @@ export function GraphCanvas() {
     node.append("text")
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .attr("font-size", "13px")
+      .attr("font-size", "11px")
       .attr("font-family", "Inter, sans-serif")
-      .attr("font-weight", "500")
       .attr("fill", "white")
       .style("pointer-events", "none")
-      .text(d => d.label);
+      .text(d => d.label.length > 12 ? d.label.substring(0, 12) + "..." : d.label);
 
     // Add tooltips
     const tooltip = d3.select("body").append("div")
@@ -254,32 +245,34 @@ export function GraphCanvas() {
       .style("z-index", "1000")
       .style("box-shadow", "0 4px 6px -1px rgb(0 0 0 / 0.1)");
 
-    // Set static positions immediately
-    function updatePositions() {
+    // Update positions on simulation tick
+    simulation.on("tick", () => {
       link
-        .attr("x1", d => {
-          const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
-          return sourceNode?.x || 0;
-        })
-        .attr("y1", d => {
-          const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
-          return sourceNode?.y || 0;
-        })
-        .attr("x2", d => {
-          const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
-          return targetNode?.x || 0;
-        })
-        .attr("y2", d => {
-          const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
-          return targetNode?.y || 0;
-        });
+        .attr("x1", d => (d.source as D3Node).x!)
+        .attr("y1", d => (d.source as D3Node).y!)
+        .attr("x2", d => (d.target as D3Node).x!)
+        .attr("y2", d => (d.target as D3Node).y!);
 
       node
         .attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+
+    function dragstarted(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
+      if (!event.active) simulation.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
     }
 
-    updatePositions();
+    function dragged(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
+      d.fx = event.x;
+      d.fy = event.y;
+    }
 
+    function dragended(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
+      if (!event.active) simulation.alphaTarget(0);
+      d.fx = null;
+      d.fy = null;
+    }
 
     function handleNodeClick(event: MouseEvent, d: D3Node) {
       event.stopPropagation();
@@ -288,40 +281,41 @@ export function GraphCanvas() {
 
     function handleNodeMouseEnter(event: MouseEvent, d: D3Node) {
       // Highlight connected nodes
-      // const connectedNodes = new Set([d.id]);
-      // links.forEach(link => {
-      //   const sourceId = typeof link.source === "string" ? link.source : link.source.id;
-      //   const targetId = typeof link.target === "string" ? link.target : link.target.id;
-      //
-      //   if (sourceId === d.id) connectedNodes.add(targetId);
-      //   if (targetId === d.id) connectedNodes.add(sourceId);
-      // });
-      //
-      // setHighlightedNodes(connectedNodes);
-      //
-      // // Show tooltip
-      // tooltip
-      //   .style("visibility", "visible")
-      //   .html(`
-      //     <div class="font-semibold">${d.label}</div>
-      //     <div class="text-sm text-muted-foreground mt-1">
-      //       <div>Type: ${d.kind}</div>
-      //       ${d.module ? `<div>Module: ${d.module}</div>` : ""}
-      //       ${d.package ? `<div>Package: ${d.package}</div>` : ""}
-      //       <div>Fan-in: ${d.fanIn} | Fan-out: ${d.fanOut}</div>
-      //     </div>
-      //   `)
-      //   .style("left", (event.pageX + 10) + "px")
-      //   .style("top", (event.pageY - 10) + "px");
+      const connectedNodes = new Set([d.id]);
+      links.forEach(link => {
+        const sourceId = typeof link.source === "string" ? link.source : link.source.id;
+        const targetId = typeof link.target === "string" ? link.target : link.target.id;
+        
+        if (sourceId === d.id) connectedNodes.add(targetId);
+        if (targetId === d.id) connectedNodes.add(sourceId);
+      });
+      
+      setHighlightedNodes(connectedNodes);
+
+      // Show tooltip
+      tooltip
+        .style("visibility", "visible")
+        .html(`
+          <div class="font-semibold">${d.label}</div>
+          <div class="text-sm text-muted-foreground mt-1">
+            <div>Type: ${d.kind}</div>
+            ${d.module ? `<div>Module: ${d.module}</div>` : ""}
+            ${d.package ? `<div>Package: ${d.package}</div>` : ""}
+            <div>Fan-in: ${d.fanIn} | Fan-out: ${d.fanOut}</div>
+          </div>
+        `)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 10) + "px");
     }
 
     function handleNodeMouseLeave() {
-      // setHighlightedNodes(new Set());
-      // tooltip.style("visibility", "hidden");
+      setHighlightedNodes(new Set());
+      tooltip.style("visibility", "hidden");
     }
 
     // Cleanup function
     return () => {
+      simulation.stop();
       d3.selectAll(".d3-tooltip").remove();
     };
 
@@ -329,8 +323,8 @@ export function GraphCanvas() {
 
   return (
     <div className="w-full h-full relative">
-      <svg
-        ref={svgRef}
+      <svg 
+        ref={svgRef} 
         className="w-full h-full bg-background border border-border rounded-lg"
         style={{ minHeight: '500px' }}
       />

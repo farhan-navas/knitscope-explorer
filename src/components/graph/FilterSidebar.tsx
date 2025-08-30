@@ -94,7 +94,7 @@ export function FilterSidebar() {
         <div className="space-y-3">
           <Label className="text-xs font-medium">Node Types</Label>
           <div className="space-y-2">
-            {(["provider", "consumer"] as GraphNodeKind[]).map((kind) => (
+            {(["provider", "consumer", "type"] as GraphNodeKind[]).map((kind) => (
               <div key={kind} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Checkbox
@@ -114,30 +114,31 @@ export function FilterSidebar() {
           </div>
         </div>
 
+        <Separator />
 
         {/* Edge Types */}
-        {/* <div className="space-y-3"> */}
-        {/*   <Label className="text-xs font-medium">Edge Types</Label> */}
-        {/*   <div className="space-y-2"> */}
-        {/*     {(["provides", "requires", "needs"] as EdgeKind[]).map((kind) => ( */}
-        {/*       <div key={kind} className="flex items-center justify-between"> */}
-        {/*         <div className="flex items-center gap-2"> */}
-        {/*           <Checkbox */}
-        {/*             checked={filters.edgeKinds.has(kind)} */}
-        {/*             onCheckedChange={() => toggleEdgeKind(kind)} */}
-        {/*             className="h-4 w-4" */}
-        {/*           /> */}
-        {/*           <Label className={`text-sm capitalize edge-${kind}`}> */}
-        {/*             {kind} */}
-        {/*           </Label> */}
-        {/*         </div> */}
-        {/*         <Badge variant="secondary" className="text-xs"> */}
-        {/*           {edgeKindCounts[kind]} */}
-        {/*         </Badge> */}
-        {/*       </div> */}
-        {/*     ))} */}
-        {/*   </div> */}
-        {/* </div> */}
+        <div className="space-y-3">
+          <Label className="text-xs font-medium">Edge Types</Label>
+          <div className="space-y-2">
+            {(["provides", "requires", "needs"] as EdgeKind[]).map((kind) => (
+              <div key={kind} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Checkbox
+                    checked={filters.edgeKinds.has(kind)}
+                    onCheckedChange={() => toggleEdgeKind(kind)}
+                    className="h-4 w-4"
+                  />
+                  <Label className={`text-sm capitalize edge-${kind}`}>
+                    {kind}
+                  </Label>
+                </div>
+                <Badge variant="secondary" className="text-xs">
+                  {edgeKindCounts[kind]}
+                </Badge>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <Separator />
 

@@ -3,19 +3,19 @@ import { GraphJson, RenderableNode, RenderableEdge, ProcessedGraph, GraphNodeKin
 export function buildRenderableGraph(graphJson: GraphJson): ProcessedGraph {
   const nodeMap = new Map<string, RenderableNode>();
   const edges: RenderableEdge[] = [];
-
+  
   // Create nodes from types
-  // graphJson.types.forEach(type => {
-  //   nodeMap.set(type.id, {
-  //     id: type.id,
-  //     label: getShortName(type.id),
-  //     kind: "type" as GraphNodeKind,
-  //     module: type.module,
-  //     package: type.package,
-  //     fanIn: 0,
-  //     fanOut: 0,
-  //   });
-  // });
+  graphJson.types.forEach(type => {
+    nodeMap.set(type.id, {
+      id: type.id,
+      label: getShortName(type.id),
+      kind: "type" as GraphNodeKind,
+      module: type.module,
+      package: type.package,
+      fanIn: 0,
+      fanOut: 0,
+    });
+  });
 
   // Create nodes from providers
   graphJson.providers.forEach(provider => {
@@ -59,7 +59,7 @@ export function buildRenderableGraph(graphJson: GraphJson): ProcessedGraph {
     // Update fan-in/fan-out counts
     const sourceNode = nodeMap.get(edge.from);
     const targetNode = nodeMap.get(edge.to);
-
+    
     if (sourceNode) sourceNode.fanOut++;
     if (targetNode) targetNode.fanIn++;
   });
@@ -105,11 +105,11 @@ function getShortName(fullName: string): string {
 }
 
 function findStronglyConnectedComponents(
-  nodes: RenderableNode[],
+  nodes: RenderableNode[], 
   edges: RenderableEdge[]
 ): string[][] {
   const graph = new Map<string, string[]>();
-
+  
   // Build adjacency list
   nodes.forEach(node => graph.set(node.id, []));
   edges.forEach(edge => {
@@ -167,13 +167,13 @@ function findStronglyConnectedComponents(
 function calculateMaxDepth(nodes: RenderableNode[], edges: RenderableEdge[]): number {
   const graph = new Map<string, string[]>();
   const inDegree = new Map<string, number>();
-
+  
   // Build adjacency list and in-degree count
   nodes.forEach(node => {
     graph.set(node.id, []);
     inDegree.set(node.id, 0);
   });
-
+  
   edges.forEach(edge => {
     const neighbors = graph.get(edge.source) || [];
     neighbors.push(edge.target);
@@ -184,7 +184,7 @@ function calculateMaxDepth(nodes: RenderableNode[], edges: RenderableEdge[]): nu
   // Topological sort with depth calculation
   const queue: string[] = [];
   const depth = new Map<string, number>();
-
+  
   // Start with nodes that have no incoming edges
   for (const [nodeId, degree] of inDegree) {
     if (degree === 0) {
@@ -198,12 +198,12 @@ function calculateMaxDepth(nodes: RenderableNode[], edges: RenderableEdge[]): nu
     const current = queue.shift()!;
     const currentDepth = depth.get(current) || 0;
     maxDepth = Math.max(maxDepth, currentDepth);
-
+    
     const neighbors = graph.get(current) || [];
     for (const neighbor of neighbors) {
       const newDegree = (inDegree.get(neighbor) || 0) - 1;
       inDegree.set(neighbor, newDegree);
-
+      
       if (newDegree === 0) {
         queue.push(neighbor);
         depth.set(neighbor, currentDepth + 1);

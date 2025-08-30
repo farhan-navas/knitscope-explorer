@@ -32,12 +32,12 @@ const Index = () => {
         const content = e.target?.result as string;
         const graphData = JSON.parse(content);
         loadGraph(graphData);
-
+        
         toast({
           title: "Graph loaded successfully",
           description: "Redirecting to graph explorer...",
         });
-
+        
         navigate("/graph");
       } catch (error) {
         toast({
@@ -47,22 +47,20 @@ const Index = () => {
         });
       }
     };
-
+    
     reader.readAsText(file);
   }, [loadGraph, navigate, toast]);
 
   const loadDemoGraph = async () => {
     try {
       const demoData = await import("@/data/demo-graph.json");
-      console.log(demoData);
-      console.log("jjjjjjjjjjjjjjjjjj");
       loadGraph(demoData.default);
-
+      
       toast({
         title: "Demo graph loaded",
         description: "Explore the sample dependency graph",
       });
-
+      
       navigate("/graph");
     } catch (error) {
       toast({
@@ -83,9 +81,9 @@ const Index = () => {
           </div>
           <h1 className="text-4xl font-bold gradient-text">KnitScope</h1>
         </div>
-
+        
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Visualize and analyze TikTok's Knit dependency injection graphs with interactive exploration,
+          Visualize and analyze TikTok's Knit dependency injection graphs with interactive exploration, 
           cycle detection, and comprehensive reporting.
         </p>
       </div>
@@ -102,7 +100,7 @@ const Index = () => {
               Upload your knit-graph.json file or try the demo
             </CardDescription>
           </CardHeader>
-
+          
           <CardContent className="space-y-6">
             {/* File Upload */}
             <div className="space-y-3">
@@ -129,8 +127,8 @@ const Index = () => {
                   <span className="bg-background px-2 text-muted-foreground">Or</span>
                 </div>
               </div>
-
-              <Button
+              
+              <Button 
                 onClick={loadDemoGraph}
                 className="btn-hero mt-4"
                 size="lg"

@@ -28,33 +28,33 @@ interface D3Link extends d3.SimulationLinkDatum<D3Node> {
 
 export function GraphCanvas() {
   const svgRef = useRef<SVGSVGElement>(null);
-  const { 
-    currentGraph, 
-    filters, 
-    selectedNodes, 
+  const {
+    currentGraph,
+    filters,
+    selectedNodes,
     toggleNodeSelection
   } = useGraphStore();
-  
+
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(new Set());
-  
+
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
 
-  useEffect(() => {
-    const handleResize = () => {
-      const container = svgRef.current?.parentElement;
-      if (container) {
-        setDimensions({
-          width: container.clientWidth,
-          height: container.clientHeight
-        });
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     const container = svgRef.current?.parentElement;
+  //     if (container) {
+  //       setDimensions({
+  //         width: container.clientWidth,
+  //         height: container.clientHeight
+  //       });
+  //     }
+  //   };
+  //
+  //   handleResize();
+  //   window.addEventListener('resize', handleResize);
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
+  //
   useEffect(() => {
     if (!currentGraph || !svgRef.current) return;
 
@@ -67,22 +67,22 @@ export function GraphCanvas() {
       if (filters.searchTerm && !node.label.toLowerCase().includes(filters.searchTerm.toLowerCase())) {
         return false;
       }
-      
+
       // Node kind filter
       if (!filters.nodeKinds.has(node.kind)) {
         return false;
       }
-      
+
       // Module filter
       if (filters.modules.size > 0 && node.module && !filters.modules.has(node.module)) {
         return false;
       }
-      
+
       // Package filter
       if (filters.packages.size > 0 && node.package && !filters.packages.has(node.package)) {
         return false;
       }
-      
+
       return true;
     });
 
@@ -92,7 +92,7 @@ export function GraphCanvas() {
       if (!filters.edgeKinds.has(edge.kind)) {
         return false;
       }
-      
+
       // Only include edges where both nodes are visible
       return filteredNodeIds.has(edge.source) && filteredNodeIds.has(edge.target);
     });
@@ -113,11 +113,11 @@ export function GraphCanvas() {
 
     // Set up SVG
     svg.attr("width", dimensions.width)
-       .attr("height", dimensions.height);
+      .attr("height", dimensions.height);
 
     // Add zoom behavior
     const g = svg.append("g");
-    
+
     const zoom = d3.zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.1, 3])
       .on("zoom", (event) => {
@@ -135,7 +135,7 @@ export function GraphCanvas() {
 
     // Add arrow markers for different edge types
     const defs = svg.append("defs");
-    
+
     const arrowColors = {
       provides: "hsl(142, 76%, 36%)",
       requires: "hsl(24, 70%, 50%)",
@@ -158,7 +158,7 @@ export function GraphCanvas() {
 
     // Draw edges
     const linkGroup = g.append("g").attr("class", "links");
-    
+
     const link = linkGroup.selectAll("line")
       .data(links)
       .enter().append("line")
@@ -170,7 +170,7 @@ export function GraphCanvas() {
 
     // Draw nodes
     const nodeGroup = g.append("g").attr("class", "nodes");
-    
+
     const node = nodeGroup.selectAll("g")
       .data(nodes)
       .enter().append("g")
@@ -189,11 +189,11 @@ export function GraphCanvas() {
       const selection = d3.select(this);
       const isSelected = selectedNodes?.has(d.id) || false;
       const isHighlighted = highlightedNodes?.has(d.id) || false;
-      
+
       const strokeColor = isSelected ? "hsl(250, 84%, 54%)" : "hsl(var(--border))";
       const strokeWidth = isSelected ? 4 : 2;
       const opacity = isHighlighted ? 1 : 0.9;
-      
+
       if (d.kind === "type") {
         selection.append("circle")
           .attr("r", 25)
@@ -281,31 +281,31 @@ export function GraphCanvas() {
 
     function handleNodeMouseEnter(event: MouseEvent, d: D3Node) {
       // Highlight connected nodes
-      const connectedNodes = new Set([d.id]);
-      links.forEach(link => {
-        const sourceId = typeof link.source === "string" ? link.source : link.source.id;
-        const targetId = typeof link.target === "string" ? link.target : link.target.id;
-        
-        if (sourceId === d.id) connectedNodes.add(targetId);
-        if (targetId === d.id) connectedNodes.add(sourceId);
-      });
-      
-      setHighlightedNodes(connectedNodes);
-
-      // Show tooltip
-      tooltip
-        .style("visibility", "visible")
-        .html(`
-          <div class="font-semibold">${d.label}</div>
-          <div class="text-sm text-muted-foreground mt-1">
-            <div>Type: ${d.kind}</div>
-            ${d.module ? `<div>Module: ${d.module}</div>` : ""}
-            ${d.package ? `<div>Package: ${d.package}</div>` : ""}
-            <div>Fan-in: ${d.fanIn} | Fan-out: ${d.fanOut}</div>
-          </div>
-        `)
-        .style("left", (event.pageX + 10) + "px")
-        .style("top", (event.pageY - 10) + "px");
+      // const connectedNodes = new Set([d.id]);
+      // links.forEach(link => {
+      //   const sourceId = typeof link.source === "string" ? link.source : link.source.id;
+      //   const targetId = typeof link.target === "string" ? link.target : link.target.id;
+      //
+      //   if (sourceId === d.id) connectedNodes.add(targetId);
+      //   if (targetId === d.id) connectedNodes.add(sourceId);
+      // });
+      //
+      // setHighlightedNodes(connectedNodes);
+      //
+      // // Show tooltip
+      // tooltip
+      //   .style("visibility", "visible")
+      //   .html(`
+      //     <div class="font-semibold">${d.label}</div>
+      //     <div class="text-sm text-muted-foreground mt-1">
+      //       <div>Type: ${d.kind}</div>
+      //       ${d.module ? `<div>Module: ${d.module}</div>` : ""}
+      //       ${d.package ? `<div>Package: ${d.package}</div>` : ""}
+      //       <div>Fan-in: ${d.fanIn} | Fan-out: ${d.fanOut}</div>
+      //     </div>
+      //   `)
+      //   .style("left", (event.pageX + 10) + "px")
+      //   .style("top", (event.pageY - 10) + "px");
     }
 
     function handleNodeMouseLeave() {
@@ -323,8 +323,8 @@ export function GraphCanvas() {
 
   return (
     <div className="w-full h-full relative">
-      <svg 
-        ref={svgRef} 
+      <svg
+        ref={svgRef}
         className="w-full h-full bg-background border border-border rounded-lg"
         style={{ minHeight: '500px' }}
       />

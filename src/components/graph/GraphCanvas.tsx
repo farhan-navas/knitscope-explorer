@@ -309,8 +309,8 @@ export function GraphCanvas() {
     }
 
     function handleNodeMouseLeave() {
-      setHighlightedNodes(new Set());
-      tooltip.style("visibility", "hidden");
+      // setHighlightedNodes(new Set());
+      // tooltip.style("visibility", "hidden");
     }
 
     // Cleanup function

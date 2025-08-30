@@ -159,7 +159,7 @@ export interface GraphMetrics {
 // Store state types
 export interface GraphState {
   currentGraph: ProcessedGraph | null;
-  selectedNodes: Set<string>;
+  selectedNode: string | null;
   filters: GraphFilters;
   metrics: GraphMetrics | null;
   isLoading: boolean;

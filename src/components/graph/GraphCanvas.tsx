@@ -31,8 +31,8 @@ export function GraphCanvas() {
   const { 
     currentGraph, 
     filters, 
-    selectedNodes, 
-    toggleNodeSelection
+    selectedNode, 
+    setSelectedNode
   } = useGraphStore();
   
   const [highlightedNodes, setHighlightedNodes] = useState<Set<string>>(new Set());
@@ -97,12 +97,34 @@ export function GraphCanvas() {
       return filteredNodeIds.has(edge.source) && filteredNodeIds.has(edge.target);
     });
 
-    // Convert to D3 format
-    const nodes: D3Node[] = filteredNodes.map(node => ({
-      ...node,
-      x: Math.random() * dimensions.width,
-      y: Math.random() * dimensions.height
-    }));
+    // Calculate node sizes based on text length
+    const getNodeDimensions = (label: string) => {
+      const padding = 20;
+      const minWidth = 80;
+      const minHeight = 40;
+      const charWidth = 8;
+      
+      const textWidth = label.length * charWidth;
+      const nodeWidth = Math.max(minWidth, textWidth + padding);
+      const nodeHeight = minHeight;
+      
+      return { width: nodeWidth, height: nodeHeight };
+    };
+
+    // Create static grid layout
+    const STANDARD_EDGE_DISTANCE = 200;
+    const nodesPerRow = Math.ceil(Math.sqrt(filteredNodes.length));
+    
+    const nodes: D3Node[] = filteredNodes.map((node, index) => {
+      const row = Math.floor(index / nodesPerRow);
+      const col = index % nodesPerRow;
+      
+      return {
+        ...node,
+        x: (col + 1) * STANDARD_EDGE_DISTANCE,
+        y: (row + 1) * STANDARD_EDGE_DISTANCE
+      };
+    });
 
     const links: D3Link[] = filteredEdges.map(edge => ({
       id: edge.id,
@@ -126,13 +148,6 @@ export function GraphCanvas() {
 
     svg.call(zoom);
 
-    // Create simulation
-    const simulation = d3.forceSimulation<D3Node>(nodes)
-      .force("link", d3.forceLink<D3Node, D3Link>(links).id(d => d.id).distance(100))
-      .force("charge", d3.forceManyBody().strength(-300))
-      .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
-      .force("collision", d3.forceCollide().radius(35));
-
     // Add arrow markers for different edge types
     const defs = svg.append("defs");
     
@@ -146,11 +161,11 @@ export function GraphCanvas() {
       defs.append("marker")
         .attr("id", `arrow-${kind}`)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 25)
+        .attr("refX", 50)
         .attr("refY", 0)
         .attr("orient", "auto")
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
+        .attr("markerWidth", 8)
+        .attr("markerHeight", 8)
         .append("path")
         .attr("d", "M0,-5L10,0L0,5")
         .attr("fill", color);
@@ -176,10 +191,6 @@ export function GraphCanvas() {
       .enter().append("g")
       .attr("class", "node")
       .style("cursor", "pointer")
-      .call(d3.drag<SVGGElement, D3Node>()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended))
       .on("click", handleNodeClick)
       .on("mouseenter", handleNodeMouseEnter)
       .on("mouseleave", handleNodeMouseLeave);
@@ -187,34 +198,38 @@ export function GraphCanvas() {
     // Add node shapes based on type
     node.each(function(d) {
       const selection = d3.select(this);
-      const isSelected = selectedNodes?.has(d.id) || false;
+      const isSelected = selectedNode === d.id;
       const isHighlighted = highlightedNodes?.has(d.id) || false;
+      const dimensions = getNodeDimensions(d.label);
       
       const strokeColor = isSelected ? "hsl(250, 84%, 54%)" : "hsl(var(--border))";
       const strokeWidth = isSelected ? 4 : 2;
       const opacity = isHighlighted ? 1 : 0.9;
       
       if (d.kind === "type") {
+        const radius = Math.max(dimensions.width, dimensions.height) / 2;
         selection.append("circle")
-          .attr("r", 25)
+          .attr("r", radius)
           .attr("fill", "hsl(250, 84%, 54%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
           .attr("opacity", opacity);
       } else if (d.kind === "provider") {
         selection.append("rect")
-          .attr("width", 50)
-          .attr("height", 30)
-          .attr("x", -25)
-          .attr("y", -15)
+          .attr("width", dimensions.width)
+          .attr("height", dimensions.height)
+          .attr("x", -dimensions.width / 2)
+          .attr("y", -dimensions.height / 2)
           .attr("rx", 5)
           .attr("fill", "hsl(142, 76%, 36%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
           .attr("opacity", opacity);
       } else if (d.kind === "consumer") {
+        const halfWidth = dimensions.width / 2;
+        const halfHeight = dimensions.height / 2;
         selection.append("path")
-          .attr("d", "M-25,-15 L20,-15 L25,0 L20,15 L-25,15 L-20,0 Z")
+          .attr("d", `M-${halfWidth},-${halfHeight} L${halfWidth-10},-${halfHeight} L${halfWidth},0 L${halfWidth-10},${halfHeight} L-${halfWidth},${halfHeight} L-${halfWidth-10},0 Z`)
           .attr("fill", "hsl(24, 70%, 50%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
@@ -226,11 +241,11 @@ export function GraphCanvas() {
     node.append("text")
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .attr("font-size", "11px")
+      .attr("font-size", "13px")
       .attr("font-family", "Inter, sans-serif")
       .attr("fill", "white")
       .style("pointer-events", "none")
-      .text(d => d.label.length > 12 ? d.label.substring(0, 12) + "..." : d.label);
+      .text(d => d.label);
 
     // Add tooltips
     const tooltip = d3.select("body").append("div")
@@ -245,38 +260,30 @@ export function GraphCanvas() {
       .style("z-index", "1000")
       .style("box-shadow", "0 4px 6px -1px rgb(0 0 0 / 0.1)");
 
-    // Update positions on simulation tick
-    simulation.on("tick", () => {
-      link
-        .attr("x1", d => (d.source as D3Node).x!)
-        .attr("y1", d => (d.source as D3Node).y!)
-        .attr("x2", d => (d.target as D3Node).x!)
-        .attr("y2", d => (d.target as D3Node).y!);
+    // Set static positions for nodes and edges
+    link
+      .attr("x1", d => {
+        const sourceNode = nodes.find(n => n.id === d.source);
+        return sourceNode?.x || 0;
+      })
+      .attr("y1", d => {
+        const sourceNode = nodes.find(n => n.id === d.source);
+        return sourceNode?.y || 0;
+      })
+      .attr("x2", d => {
+        const targetNode = nodes.find(n => n.id === d.target);
+        return targetNode?.x || 0;
+      })
+      .attr("y2", d => {
+        const targetNode = nodes.find(n => n.id === d.target);
+        return targetNode?.y || 0;
+      });
 
-      node
-        .attr("transform", d => `translate(${d.x},${d.y})`);
-    });
-
-    function dragstarted(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragged(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
-      d.fx = event.x;
-      d.fy = event.y;
-    }
-
-    function dragended(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
+    node.attr("transform", d => `translate(${d.x},${d.y})`);
 
     function handleNodeClick(event: MouseEvent, d: D3Node) {
       event.stopPropagation();
-      toggleNodeSelection(d.id);
+      setSelectedNode(selectedNode === d.id ? null : d.id);
     }
 
     function handleNodeMouseEnter(event: MouseEvent, d: D3Node) {
@@ -315,11 +322,10 @@ export function GraphCanvas() {
 
     // Cleanup function
     return () => {
-      simulation.stop();
       d3.selectAll(".d3-tooltip").remove();
     };
 
-  }, [currentGraph, filters, dimensions, selectedNodes, highlightedNodes, toggleNodeSelection, setHighlightedNodes]);
+  }, [currentGraph, filters, dimensions, selectedNode, highlightedNodes, setSelectedNode, setHighlightedNodes]);
 
   return (
     <div className="w-full h-full relative">

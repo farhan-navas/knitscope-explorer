@@ -19,8 +19,7 @@ interface GraphStore extends GraphState {
   // Actions
   loadGraph: (graphJson: any) => void;
   clearGraph: () => void;
-  setSelectedNodes: (nodeIds: string[]) => void;
-  toggleNodeSelection: (nodeId: string) => void;
+  setSelectedNode: (nodeId: string | null) => void;
   updateFilters: (filters: Partial<GraphFilters>) => void;
   setSearchTerm: (term: string) => void;
   toggleNodeKind: (kind: GraphNodeKind) => void;
@@ -35,7 +34,7 @@ interface GraphStore extends GraphState {
 export const useGraphStore = create<GraphStore>((set, get) => ({
   // Initial state
   currentGraph: null,
-  selectedNodes: new Set<string>(),
+  selectedNode: null as string | null,
   filters: initialFilters,
   metrics: null,
   isLoading: false,
@@ -60,7 +59,7 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
         currentGraph: processedGraph,
         metrics,
         filters: newFilters,
-        selectedNodes: new Set<string>(),
+        selectedNode: null,
         isLoading: false,
         error: null,
       });
@@ -75,28 +74,15 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
   clearGraph: () => {
     set({
       currentGraph: null,
-      selectedNodes: new Set<string>(),
+      selectedNode: null,
       filters: initialFilters,
       metrics: null,
       error: null,
     });
   },
 
-  setSelectedNodes: (nodeIds: string[]) => {
-    set({ selectedNodes: new Set(nodeIds) });
-  },
-
-  toggleNodeSelection: (nodeId: string) => {
-    const { selectedNodes } = get();
-    const newSelection = new Set(selectedNodes);
-    
-    if (newSelection.has(nodeId)) {
-      newSelection.delete(nodeId);
-    } else {
-      newSelection.add(nodeId);
-    }
-    
-    set({ selectedNodes: newSelection });
+  setSelectedNode: (nodeId: string | null) => {
+    set({ selectedNode: nodeId });
   },
 
   updateFilters: (newFilters: Partial<GraphFilters>) => {

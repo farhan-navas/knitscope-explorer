@@ -8,10 +8,10 @@ import { Copy, ExternalLink, Network } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 export function DetailsSidebar() {
-  const { currentGraph, selectedNodes } = useGraphStore();
+  const { currentGraph, selectedNode } = useGraphStore();
   const { toast } = useToast();
 
-  if (!currentGraph || selectedNodes.size === 0) {
+  if (!currentGraph || !selectedNode) {
     return (
       <Card className="h-full">
         <CardContent className="flex items-center justify-center h-full">
@@ -24,10 +24,9 @@ export function DetailsSidebar() {
     );
   }
 
-  const selectedNodeId = Array.from(selectedNodes)[0]; // Show first selected node
-  const selectedNode = currentGraph.nodes.find(n => n.id === selectedNodeId);
+  const selectedNodeData = currentGraph.nodes.find(n => n.id === selectedNode);
 
-  if (!selectedNode) return null;
+  if (!selectedNodeData) return null;
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -38,19 +37,19 @@ export function DetailsSidebar() {
   };
 
   const connectedEdges = currentGraph.edges.filter(
-    edge => edge.source === selectedNodeId || edge.target === selectedNodeId
+    edge => edge.source === selectedNode || edge.target === selectedNode
   );
 
-  const incomingEdges = connectedEdges.filter(edge => edge.target === selectedNodeId);
-  const outgoingEdges = connectedEdges.filter(edge => edge.source === selectedNodeId);
+  const incomingEdges = connectedEdges.filter(edge => edge.target === selectedNode);
+  const outgoingEdges = connectedEdges.filter(edge => edge.source === selectedNode);
 
   return (
     <Card className="h-full">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm">Node Details</CardTitle>
-          <Badge variant="outline" className={`node-${selectedNode.kind}`}>
-            {selectedNode.kind}
+          <Badge variant="outline" className={`node-${selectedNodeData.kind}`}>
+            {selectedNodeData.kind}
           </Badge>
         </div>
       </CardHeader>
@@ -63,12 +62,12 @@ export function DetailsSidebar() {
               Name
             </Label>
             <div className="flex items-center gap-2 mt-1">
-              <p className="text-sm font-mono break-all">{selectedNode.label}</p>
+              <p className="text-sm font-mono break-all">{selectedNodeData.label}</p>
               <Button
                 variant="ghost"
                 size="sm"
                 className="h-6 w-6 p-0"
-                onClick={() => copyToClipboard(selectedNode.label, "Name")}
+                onClick={() => copyToClipboard(selectedNodeData.label, "Name")}
               >
                 <Copy className="h-3 w-3" />
               </Button>
@@ -81,43 +80,43 @@ export function DetailsSidebar() {
             </Label>
             <div className="flex items-center gap-2 mt-1">
               <p className="text-xs font-mono break-all text-muted-foreground">
-                {selectedNode.id}
+                {selectedNodeData.id}
               </p>
               <Button
                 variant="ghost"
                 size="sm"
                 className="h-6 w-6 p-0"
-                onClick={() => copyToClipboard(selectedNode.id, "ID")}
+                onClick={() => copyToClipboard(selectedNodeData.id, "ID")}
               >
                 <Copy className="h-3 w-3" />
               </Button>
             </div>
           </div>
 
-          {selectedNode.module && (
+          {selectedNodeData.module && (
             <div>
               <Label className="text-xs font-medium text-muted-foreground">
                 Module
               </Label>
-              <p className="text-sm mt-1">{selectedNode.module}</p>
+              <p className="text-sm mt-1">{selectedNodeData.module}</p>
             </div>
           )}
 
-          {selectedNode.package && (
+          {selectedNodeData.package && (
             <div>
               <Label className="text-xs font-medium text-muted-foreground">
                 Package
               </Label>
-              <p className="text-sm mt-1">{selectedNode.package}</p>
+              <p className="text-sm mt-1">{selectedNodeData.package}</p>
             </div>
           )}
 
-          {selectedNode.owner && (
+          {selectedNodeData.owner && (
             <div>
               <Label className="text-xs font-medium text-muted-foreground">
                 Owner
               </Label>
-              <p className="text-sm mt-1 font-mono">{selectedNode.owner}</p>
+              <p className="text-sm mt-1 font-mono">{selectedNodeData.owner}</p>
             </div>
           )}
         </div>
@@ -125,22 +124,22 @@ export function DetailsSidebar() {
         <Separator />
 
         {/* Type-specific info */}
-        {selectedNode.kind === "provider" && (
+        {selectedNodeData.kind === "provider" && (
           <div className="space-y-3">
             <div>
               <Label className="text-xs font-medium text-muted-foreground">
                 Provides Type
               </Label>
-              <p className="text-sm mt-1 font-mono">{selectedNode.provides}</p>
+              <p className="text-sm mt-1 font-mono">{selectedNodeData.provides}</p>
             </div>
             
-            {selectedNode.requires && selectedNode.requires.length > 0 && (
+            {selectedNodeData.requires && selectedNodeData.requires.length > 0 && (
               <div>
                 <Label className="text-xs font-medium text-muted-foreground">
-                  Requires ({selectedNode.requires.length})
+                  Requires ({selectedNodeData.requires.length})
                 </Label>
                 <div className="space-y-1 mt-1">
-                  {selectedNode.requires.map((req, index) => (
+                  {selectedNodeData.requires.map((req, index) => (
                     <p key={index} className="text-xs font-mono text-muted-foreground">
                       {req}
                     </p>
@@ -151,12 +150,12 @@ export function DetailsSidebar() {
           </div>
         )}
 
-        {selectedNode.kind === "consumer" && selectedNode.needs && (
+        {selectedNodeData.kind === "consumer" && selectedNodeData.needs && (
           <div>
             <Label className="text-xs font-medium text-muted-foreground">
               Needs Type
             </Label>
-            <p className="text-sm mt-1 font-mono">{selectedNode.needs}</p>
+            <p className="text-sm mt-1 font-mono">{selectedNodeData.needs}</p>
           </div>
         )}
 
@@ -169,13 +168,13 @@ export function DetailsSidebar() {
               <Label className="text-xs font-medium text-muted-foreground">
                 Fan-in
               </Label>
-              <p className="text-lg font-bold">{selectedNode.fanIn}</p>
+              <p className="text-lg font-bold">{selectedNodeData.fanIn}</p>
             </div>
             <div>
               <Label className="text-xs font-medium text-muted-foreground">
                 Fan-out
               </Label>
-              <p className="text-lg font-bold">{selectedNode.fanOut}</p>
+              <p className="text-lg font-bold">{selectedNodeData.fanOut}</p>
             </div>
           </div>
         </div>
@@ -235,18 +234,18 @@ export function DetailsSidebar() {
             variant="outline"
             size="sm"
             className="w-full justify-start"
-            onClick={() => copyToClipboard(selectedNode.id, "Node ID")}
+            onClick={() => copyToClipboard(selectedNodeData.id, "Node ID")}
           >
             <Copy className="h-4 w-4 mr-2" />
             Copy ID
           </Button>
           
-          {selectedNode.owner && (
+          {selectedNodeData.owner && (
             <Button
               variant="outline"
               size="sm"
               className="w-full justify-start"
-              onClick={() => copyToClipboard(selectedNode.owner, "Owner")}
+              onClick={() => copyToClipboard(selectedNodeData.owner, "Owner")}
             >
               <ExternalLink className="h-4 w-4 mr-2" />
               Copy Owner

@@ -126,12 +126,16 @@ export function GraphCanvas() {
 
     svg.call(zoom);
 
-    // Create simulation
-    const simulation = d3.forceSimulation<D3Node>(nodes)
-      .force("link", d3.forceLink<D3Node, D3Link>(links).id(d => d.id).distance(100))
-      .force("charge", d3.forceManyBody().strength(-300))
-      .force("center", d3.forceCenter(dimensions.width / 2, dimensions.height / 2))
-      .force("collision", d3.forceCollide().radius(35));
+    // Static positioning - no simulation needed
+    const cols = Math.ceil(Math.sqrt(nodes.length));
+    nodes.forEach((node, i) => {
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      node.x = (col + 1) * (dimensions.width / (cols + 1));
+      node.y = (row + 1) * (dimensions.height / (Math.ceil(nodes.length / cols) + 1));
+      node.fx = node.x; // Fix position
+      node.fy = node.y; // Fix position
+    });
 
     // Add arrow markers for different edge types
     const defs = svg.append("defs");
@@ -176,10 +180,6 @@ export function GraphCanvas() {
       .enter().append("g")
       .attr("class", "node")
       .style("cursor", "pointer")
-      .call(d3.drag<SVGGElement, D3Node>()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended))
       .on("click", handleNodeClick)
       .on("mouseenter", handleNodeMouseEnter)
       .on("mouseleave", handleNodeMouseLeave);
@@ -245,34 +245,28 @@ export function GraphCanvas() {
       .style("z-index", "1000")
       .style("box-shadow", "0 4px 6px -1px rgb(0 0 0 / 0.1)");
 
-    // Update positions on simulation tick
-    simulation.on("tick", () => {
-      link
-        .attr("x1", d => (d.source as D3Node).x!)
-        .attr("y1", d => (d.source as D3Node).y!)
-        .attr("x2", d => (d.target as D3Node).x!)
-        .attr("y2", d => (d.target as D3Node).y!);
+    // Set static positions immediately
+    link
+      .attr("x1", d => {
+        const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
+        return sourceNode?.x || 0;
+      })
+      .attr("y1", d => {
+        const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
+        return sourceNode?.y || 0;
+      })
+      .attr("x2", d => {
+        const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
+        return targetNode?.x || 0;
+      })
+      .attr("y2", d => {
+        const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
+        return targetNode?.y || 0;
+      });
 
-      node
-        .attr("transform", d => `translate(${d.x},${d.y})`);
-    });
+    node
+      .attr("transform", d => `translate(${d.x},${d.y})`);
 
-    function dragstarted(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragged(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
-      d.fx = event.x;
-      d.fy = event.y;
-    }
-
-    function dragended(event: d3.D3DragEvent<SVGGElement, D3Node, D3Node>, d: D3Node) {
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
 
     function handleNodeClick(event: MouseEvent, d: D3Node) {
       event.stopPropagation();
@@ -315,7 +309,6 @@ export function GraphCanvas() {
 
     // Cleanup function
     return () => {
-      simulation.stop();
       d3.selectAll(".d3-tooltip").remove();
     };
 

@@ -7,7 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { AppLayout } from "./components/layout/AppLayout";
 import Index from "./pages/Index";
 import GraphExplorer from "./pages/GraphExplorer";
-import GraphExplorerFromCLI from "./pages/GraphExplorerFromCli";
+import GraphExplorerFromCLI from "./pages/GraphExplorerFromCLI";
 import Analysis from "./pages/Analysis";
 import Compare from "./pages/Compare";
 import Report from "./pages/Report";

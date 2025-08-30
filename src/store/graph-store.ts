@@ -88,15 +88,14 @@ export const useGraphStore = create<GraphStore>((set, get) => ({
 
   toggleNodeSelection: (nodeId: string) => {
     const { selectedNodes } = get();
-    const newSelection = new Set(selectedNodes);
     
-    if (newSelection.has(nodeId)) {
-      newSelection.delete(nodeId);
+    if (selectedNodes.has(nodeId)) {
+      // If clicking the same node, deselect it
+      set({ selectedNodes: new Set() });
     } else {
-      newSelection.add(nodeId);
+      // Always select only the clicked node (single selection)
+      set({ selectedNodes: new Set([nodeId]) });
     }
-    
-    set({ selectedNodes: newSelection });
   },
 
   updateFilters: (newFilters: Partial<GraphFilters>) => {

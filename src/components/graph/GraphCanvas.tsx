@@ -150,11 +150,11 @@ export function GraphCanvas() {
       defs.append("marker")
         .attr("id", `arrow-${kind}`)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 25)
+        .attr("refX", 35)
         .attr("refY", 0)
         .attr("orient", "auto")
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
+        .attr("markerWidth", 8)
+        .attr("markerHeight", 8)
         .append("path")
         .attr("d", "M0,-5L10,0L0,5")
         .attr("fill", color);
@@ -194,27 +194,35 @@ export function GraphCanvas() {
       const strokeWidth = isSelected ? 4 : 2;
       const opacity = isHighlighted ? 1 : 0.9;
 
+      // Calculate text dimensions for sizing nodes
+      const textLength = d.label.length * 8; // Approximate character width
+      const minWidth = Math.max(textLength + 20, 80); // Minimum padding + text width
+      const minHeight = 40;
+
       if (d.kind === "type") {
+        const radius = Math.max(minWidth / 2, 30);
         selection.append("circle")
-          .attr("r", 25)
+          .attr("r", radius)
           .attr("fill", "hsl(250, 84%, 54%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
           .attr("opacity", opacity);
       } else if (d.kind === "provider") {
         selection.append("rect")
-          .attr("width", 50)
-          .attr("height", 30)
-          .attr("x", -25)
-          .attr("y", -15)
+          .attr("width", minWidth)
+          .attr("height", minHeight)
+          .attr("x", -minWidth/2)
+          .attr("y", -minHeight/2)
           .attr("rx", 5)
           .attr("fill", "hsl(142, 76%, 36%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
           .attr("opacity", opacity);
       } else if (d.kind === "consumer") {
+        const width = minWidth;
+        const height = minHeight;
         selection.append("path")
-          .attr("d", "M-25,-15 L20,-15 L25,0 L20,15 L-25,15 L-20,0 Z")
+          .attr("d", `M-${width/2},-${height/2} L${width/2-10},-${height/2} L${width/2},0 L${width/2-10},${height/2} L-${width/2},${height/2} L-${width/2+10},0 Z`)
           .attr("fill", "hsl(24, 70%, 50%)")
           .attr("stroke", strokeColor)
           .attr("stroke-width", strokeWidth)
@@ -226,11 +234,12 @@ export function GraphCanvas() {
     node.append("text")
       .attr("dy", "0.35em")
       .attr("text-anchor", "middle")
-      .attr("font-size", "11px")
+      .attr("font-size", "13px")
       .attr("font-family", "Inter, sans-serif")
+      .attr("font-weight", "500")
       .attr("fill", "white")
       .style("pointer-events", "none")
-      .text(d => d.label.length > 12 ? d.label.substring(0, 12) + "..." : d.label);
+      .text(d => d.label);
 
     // Add tooltips
     const tooltip = d3.select("body").append("div")
@@ -246,26 +255,30 @@ export function GraphCanvas() {
       .style("box-shadow", "0 4px 6px -1px rgb(0 0 0 / 0.1)");
 
     // Set static positions immediately
-    link
-      .attr("x1", d => {
-        const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
-        return sourceNode?.x || 0;
-      })
-      .attr("y1", d => {
-        const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
-        return sourceNode?.y || 0;
-      })
-      .attr("x2", d => {
-        const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
-        return targetNode?.x || 0;
-      })
-      .attr("y2", d => {
-        const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
-        return targetNode?.y || 0;
-      });
+    function updatePositions() {
+      link
+        .attr("x1", d => {
+          const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
+          return sourceNode?.x || 0;
+        })
+        .attr("y1", d => {
+          const sourceNode = nodes.find(n => n.id === (typeof d.source === "string" ? d.source : d.source.id));
+          return sourceNode?.y || 0;
+        })
+        .attr("x2", d => {
+          const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
+          return targetNode?.x || 0;
+        })
+        .attr("y2", d => {
+          const targetNode = nodes.find(n => n.id === (typeof d.target === "string" ? d.target : d.target.id));
+          return targetNode?.y || 0;
+        });
 
-    node
-      .attr("transform", d => `translate(${d.x},${d.y})`);
+      node
+        .attr("transform", d => `translate(${d.x},${d.y})`);
+    }
+
+    updatePositions();
 
 
     function handleNodeClick(event: MouseEvent, d: D3Node) {

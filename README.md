@@ -1,73 +1,24 @@
-# Welcome to your Lovable project
+## Inspiration
+Debugging dependency injection issues in Kotlin felt like solving a puzzle blindfolded. We'd spend hours tracing through constructor parameters and config files just to understand why a service wasn't getting injected properly. We needed a way to actually *see* our DI container's structure.
 
-## Project info
+## What it does
+Knitscope visualizes your Kotlin dependency injection container as an interactive graph. It shows which classes depend on what, highlights circular dependencies, and maps out injection scopes - turning invisible relationships into clear visual connections.
 
-**URL**: https://lovable.dev/projects/32eac6b2-348f-4f9a-bf68-e9be1bf7fd87
+## How we built it
+We build knitscope as a CLI tool build in Kotlin, and a web-based visualization layer built in D3.js and React. The Kotlin CLI would parse the bytecode created from the project to look for DI injections. Once all the Injection Relationships are found, the CLI URL-encodes the respective relationships, and gives the user a link they can click on to view our frontend. 
 
-## How can I edit this code?
+Our frontend is a D3.js visualization built in React. It reades the graph as a JSON object, and renders it as an interactive graph. We used the following technologies, Zustand for state management, zod for data validation, tailwind for CSS, Vite as our build tool,
 
-There are several ways of editing your application.
+## Challenges we ran into
+Parsing the Bytecode was a challenge - we had to find a way to extract the DI annotations from the bytecode, and then parse them into a format that could be rendered. Since we were direcly parsing the bytecode, we ended up detecting some dependency relationships that were NOT a part of knit (e.g. type dependencies). Filtering out these were a challenge. 
 
-**Use Lovable**
+## Accomplishments that we're proud of
+The real-time visualization actually works! Watching dependencies light up as you navigate through your app feels magical. We also nailed the user experience - the CLI directly gives users a link they can access, greatly reducing the friction of using this tool.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/32eac6b2-348f-4f9a-bf68-e9be1bf7fd87) and start prompting.
+We are also proud of the architecture we chose for this project. While one alternative would be to simply parse the DI annotations directly, we choose the more difficult path of using the Kotlin JVM directly, looking inside the bytecode for the DI injections instead. using this method, not only isit vastly more efficient (our code runs in less than 0.2 s for the demo project) we can also easily extend our project to show other information (e.g. showing if a producer is a singleton.)
 
-Changes made via Lovable will be committed automatically to this repo.
+## What we learned
+User experience is King. We spend alot of time thinking about how to make this tool as seamless as possible. Initially, we wanted to create a server that could accept a github link and would return/display a graph. After considering this further, we realised that this would create too much friction for the the user. We eventually settled on creating a CLI tool.
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/32eac6b2-348f-4f9a-bf68-e9be1bf7fd87) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## What's next for Knitscope
+Integration with more DI frameworks, further integration using a IDE plugin for further ease of use.

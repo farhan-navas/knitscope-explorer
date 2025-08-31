@@ -1,0 +1,2001 @@
+{
+    "types": [
+        {
+            "id": "knit.demo.ObjectIndexService",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.MemoryObjectStore"
+        },
+        {
+            "id": "java.util.List"
+        },
+        {
+            "id": "knit.demo.AuditLogger",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.EventBus"
+        },
+        {
+            "id": "java.lang.String"
+        },
+        {
+            "id": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "boolean"
+        },
+        {
+            "id": "knit.demo.ReferenceEvent"
+        },
+        {
+            "id": "int"
+        },
+        {
+            "id": "knit.demo.CommandResult$Success"
+        },
+        {
+            "id": "knit.demo.ObjectValidator",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.FileSystemNode"
+        },
+        {
+            "id": "knit.demo.DirectoryNode"
+        },
+        {
+            "id": "knit.demo.FileNode"
+        },
+        {
+            "id": "byte[]"
+        },
+        {
+            "id": "knit.demo.ObjectGraphAnalyzer",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.ObjectGraphAnalyzer$ObjectGraph"
+        },
+        {
+            "id": "knit.demo.RepositoryStats"
+        },
+        {
+            "id": "knit.demo.StatusCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.StagingArea"
+        },
+        {
+            "id": "knit.demo.FileSystemEvent"
+        },
+        {
+            "id": "knit.demo.ObjectStoreEvent"
+        },
+        {
+            "id": "java.util.Set"
+        },
+        {
+            "id": "java.lang.Long"
+        },
+        {
+            "id": "knit.demo.ReferenceHistoryTracker",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "java.util.Map"
+        },
+        {
+            "id": "knit.demo.RmCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "kotlin.Triple"
+        },
+        {
+            "id": "knit.demo.CommandRegistry",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "java.lang.Object"
+        },
+        {
+            "id": "knit.demo.CommandResult"
+        },
+        {
+            "id": "knit.demo.MonitorComponent",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.PerformanceMonitor"
+        },
+        {
+            "id": "knit.demo.MemoryStoreComponent",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.SampleCli",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.CatCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.EchoCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.TreeEntry"
+        },
+        {
+            "id": "knit.demo.AddCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.TouchCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.GitCommandEvent"
+        },
+        {
+            "id": "double"
+        },
+        {
+            "id": "knit.demo.CommandResult$Info"
+        },
+        {
+            "id": "knit.demo.LogCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.MkdirCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.CommandResult$Error"
+        },
+        {
+            "id": "knit.demo.PwdCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.CdCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.EventListenerManager",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.CommitCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        },
+        {
+            "id": "knit.demo.Tree"
+        },
+        {
+            "id": "knit.demo.ReferenceHistoryTracker$RefChange"
+        },
+        {
+            "id": "knit.demo.LsCommand",
+            "module": "demo-jvm",
+            "package": "knit.demo"
+        }
+    ],
+    "providers": [
+        {
+            "id": "ObjectIndexService.<init>",
+            "type": "knit.demo.ObjectIndexService",
+            "owner": "knit.demo.ObjectIndexService",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryObjectStore"
+            ]
+        },
+        {
+            "id": "AuditLogger.<init>",
+            "type": "knit.demo.AuditLogger",
+            "owner": "knit.demo.AuditLogger",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.EventBus"
+            ]
+        },
+        {
+            "id": "MemoryReferenceManager.<init>",
+            "type": "knit.demo.MemoryReferenceManager",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectValidator.<init>",
+            "type": "knit.demo.ObjectValidator",
+            "owner": "knit.demo.ObjectValidator",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryObjectStore",
+                "knit.demo.ObjectIndexService"
+            ]
+        },
+        {
+            "id": "MemoryFileSystem.<init>",
+            "type": "knit.demo.MemoryFileSystem",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer.<init>",
+            "type": "knit.demo.ObjectGraphAnalyzer",
+            "owner": "knit.demo.ObjectGraphAnalyzer",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryObjectStore",
+                "knit.demo.ObjectValidator"
+            ]
+        },
+        {
+            "id": "StatusCommand.<init>",
+            "type": "knit.demo.StatusCommand",
+            "owner": "knit.demo.StatusCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem",
+                "knit.demo.MemoryObjectStore",
+                "knit.demo.StagingArea",
+                "knit.demo.MemoryReferenceManager"
+            ]
+        },
+        {
+            "id": "MemoryObjectStore.<init>",
+            "type": "knit.demo.MemoryObjectStore",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker.<init>",
+            "type": "knit.demo.ReferenceHistoryTracker",
+            "owner": "knit.demo.ReferenceHistoryTracker",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryReferenceManager",
+                "knit.demo.EventBus"
+            ]
+        },
+        {
+            "id": "RmCommand.<init>",
+            "type": "knit.demo.RmCommand",
+            "owner": "knit.demo.RmCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "CommandRegistry.<init>",
+            "type": "knit.demo.CommandRegistry",
+            "owner": "knit.demo.CommandRegistry",
+            "module": "demo-jvm",
+            "requires": [
+                "java.util.List",
+                "java.util.List"
+            ]
+        },
+        {
+            "id": "MonitorComponent.<init>",
+            "type": "knit.demo.MonitorComponent",
+            "owner": "knit.demo.MonitorComponent",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.EventBus",
+                "knit.demo.AuditLogger",
+                "knit.demo.PerformanceMonitor",
+                "knit.demo.ObjectGraphAnalyzer"
+            ]
+        },
+        {
+            "id": "MemoryStoreComponent.<init>",
+            "type": "knit.demo.MemoryStoreComponent",
+            "owner": "knit.demo.MemoryStoreComponent",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem",
+                "knit.demo.MemoryReferenceManager",
+                "knit.demo.MemoryObjectStore"
+            ]
+        },
+        {
+            "id": "SampleCli.<init>",
+            "type": "knit.demo.SampleCli",
+            "owner": "knit.demo.SampleCli",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryStoreComponent",
+                "knit.demo.MonitorComponent"
+            ]
+        },
+        {
+            "id": "StagingArea.<init>",
+            "type": "knit.demo.StagingArea",
+            "owner": "knit.demo.StagingArea",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CatCommand.<init>",
+            "type": "knit.demo.CatCommand",
+            "owner": "knit.demo.CatCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "EchoCommand.<init>",
+            "type": "knit.demo.EchoCommand",
+            "owner": "knit.demo.EchoCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "AddCommand.<init>",
+            "type": "knit.demo.AddCommand",
+            "owner": "knit.demo.AddCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem",
+                "knit.demo.MemoryObjectStore",
+                "knit.demo.StagingArea"
+            ]
+        },
+        {
+            "id": "TouchCommand.<init>",
+            "type": "knit.demo.TouchCommand",
+            "owner": "knit.demo.TouchCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "PerformanceMonitor.<init>",
+            "type": "knit.demo.PerformanceMonitor",
+            "owner": "knit.demo.PerformanceMonitor",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.EventBus"
+            ]
+        },
+        {
+            "id": "LogCommand.<init>",
+            "type": "knit.demo.LogCommand",
+            "owner": "knit.demo.LogCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryObjectStore",
+                "knit.demo.MemoryReferenceManager"
+            ]
+        },
+        {
+            "id": "MkdirCommand.<init>",
+            "type": "knit.demo.MkdirCommand",
+            "owner": "knit.demo.MkdirCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "PwdCommand.<init>",
+            "type": "knit.demo.PwdCommand",
+            "owner": "knit.demo.PwdCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "EventBus.<init>",
+            "type": "knit.demo.EventBus",
+            "owner": "knit.demo.EventBus",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CdCommand.<init>",
+            "type": "knit.demo.CdCommand",
+            "owner": "knit.demo.CdCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        },
+        {
+            "id": "EventListenerManager.<init>",
+            "type": "knit.demo.EventListenerManager",
+            "owner": "knit.demo.EventListenerManager",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.EventBus",
+                "knit.demo.AuditLogger",
+                "knit.demo.PerformanceMonitor"
+            ]
+        },
+        {
+            "id": "CommitCommand.<init>",
+            "type": "knit.demo.CommitCommand",
+            "owner": "knit.demo.CommitCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryObjectStore",
+                "knit.demo.StagingArea",
+                "knit.demo.MemoryReferenceManager",
+                "knit.demo.ReferenceHistoryTracker"
+            ]
+        },
+        {
+            "id": "LsCommand.<init>",
+            "type": "knit.demo.LsCommand",
+            "owner": "knit.demo.LsCommand",
+            "module": "demo-jvm",
+            "requires": [
+                "knit.demo.MemoryFileSystem"
+            ]
+        }
+    ],
+    "consumers": [
+        {
+            "id": "ObjectIndexService.findCommitsByAuthor",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ObjectIndexService",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectIndexService.findTreesByDirectory",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ObjectIndexService",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectIndexService.findBlobsByFilename",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ObjectIndexService",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "AuditLogger.getAuditLog",
+            "needs": "java.util.List",
+            "owner": "knit.demo.AuditLogger",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "AuditLogger.getRecentLogEntries",
+            "needs": "java.util.List",
+            "owner": "knit.demo.AuditLogger",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "AuditLogger.exportLog",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.AuditLogger",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "DirectoryNode.listChildren",
+            "needs": "java.util.List",
+            "owner": "knit.demo.DirectoryNode",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.createBranch",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.deleteBranch",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.createTag",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.deleteTag",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.updateHead",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.getCurrentCommitSha",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.getAllRefs",
+            "needs": "java.util.List",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.resolveRef",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryReferenceManager.isRefNameValid",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryReferenceManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceEvent.copy",
+            "needs": "knit.demo.ReferenceEvent",
+            "owner": "knit.demo.ReferenceEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceEvent.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.ReferenceEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceEvent.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.ReferenceEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Success.copy",
+            "needs": "knit.demo.CommandResult$Success",
+            "owner": "knit.demo.CommandResult$Success",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Success.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.CommandResult$Success",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Success.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.CommandResult$Success",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectValidator.validateObject",
+            "needs": "boolean",
+            "owner": "knit.demo.ObjectValidator",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectValidator.validateTree",
+            "needs": "boolean",
+            "owner": "knit.demo.ObjectValidator",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectValidator.validateCommit",
+            "needs": "boolean",
+            "owner": "knit.demo.ObjectValidator",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.getCurrentPath",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.resolvePath",
+            "needs": "knit.demo.FileSystemNode",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.findParentDirectory",
+            "needs": "knit.demo.DirectoryNode",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.createFile",
+            "needs": "knit.demo.FileNode",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.createDirectory",
+            "needs": "knit.demo.DirectoryNode",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.delete",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.readFile",
+            "needs": "byte[]",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryFileSystem.listDirectory",
+            "needs": "java.util.List",
+            "owner": "knit.demo.MemoryFileSystem",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer.buildObjectGraph",
+            "needs": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "owner": "knit.demo.ObjectGraphAnalyzer",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer.findDanglingObjects",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ObjectGraphAnalyzer",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer.findOrphanCommits",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ObjectGraphAnalyzer",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer.calculateRepositoryStats",
+            "needs": "knit.demo.RepositoryStats",
+            "owner": "knit.demo.ObjectGraphAnalyzer",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "StatusCommand.getCurrentBranch",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.StatusCommand",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "StatusCommand.findUntrackedFiles",
+            "needs": "java.util.List",
+            "owner": "knit.demo.StatusCommand",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "StatusCommand.isTracked",
+            "needs": "boolean",
+            "owner": "knit.demo.StatusCommand",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "GitObject.calculateSha",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.GitObject",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "GitObject.sha_delegate$lambda$0",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.GitObject",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "FileSystemEvent.copy",
+            "needs": "knit.demo.FileSystemEvent",
+            "owner": "knit.demo.FileSystemEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "FileSystemEvent.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.FileSystemEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "FileSystemEvent.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.FileSystemEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Ref.isBranch",
+            "needs": "boolean",
+            "owner": "knit.demo.Ref",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Ref.isTag",
+            "needs": "boolean",
+            "owner": "knit.demo.Ref",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Ref.getShortName",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.Ref",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectStoreEvent.copy",
+            "needs": "knit.demo.ObjectStoreEvent",
+            "owner": "knit.demo.ObjectStoreEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectStoreEvent.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.ObjectStoreEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectStoreEvent.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.ObjectStoreEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.store",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.exists",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.getAllObjects",
+            "needs": "java.util.Set",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.getObjectsByType",
+            "needs": "java.util.List",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.delete",
+            "needs": "boolean",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.getSize",
+            "needs": "java.lang.Long",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "MemoryObjectStore.getObjectCount",
+            "needs": "int",
+            "owner": "knit.demo.MemoryObjectStore",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker.getRefHistory",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ReferenceHistoryTracker",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker.getAllHistory",
+            "needs": "java.util.Map",
+            "owner": "knit.demo.ReferenceHistoryTracker",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker.getRecentChanges",
+            "needs": "java.util.List",
+            "owner": "knit.demo.ReferenceHistoryTracker",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Blob.asString",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.Blob",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Commit.parseCommit",
+            "needs": "kotlin.Triple",
+            "owner": "knit.demo.Commit",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandRegistry.getCommand",
+            "needs": "java.lang.Object",
+            "owner": "knit.demo.CommandRegistry",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandRegistry.executeCommand",
+            "needs": "knit.demo.CommandResult",
+            "owner": "knit.demo.CommandRegistry",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandRegistry.getHelp",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.CommandRegistry",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "StagingArea.getStagedFiles",
+            "needs": "java.util.Map",
+            "owner": "knit.demo.StagingArea",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "StagingArea.isEmpty",
+            "needs": "boolean",
+            "owner": "knit.demo.StagingArea",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "StagingArea.getStagedFileCount",
+            "needs": "int",
+            "owner": "knit.demo.StagingArea",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "TreeEntry.copy",
+            "needs": "knit.demo.TreeEntry",
+            "owner": "knit.demo.TreeEntry",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "TreeEntry.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.TreeEntry",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "TreeEntry.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.TreeEntry",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "GitCommandEvent.copy",
+            "needs": "knit.demo.GitCommandEvent",
+            "owner": "knit.demo.GitCommandEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "GitCommandEvent.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.GitCommandEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "GitCommandEvent.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.GitCommandEvent",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "PerformanceMonitor.measureOperation",
+            "needs": "java.lang.Object",
+            "owner": "knit.demo.PerformanceMonitor",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "PerformanceMonitor.getAverageTime",
+            "needs": "double",
+            "owner": "knit.demo.PerformanceMonitor",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "PerformanceMonitor.getSlowestOperations",
+            "needs": "java.util.List",
+            "owner": "knit.demo.PerformanceMonitor",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "PerformanceMonitor.getTotalOperations",
+            "needs": "int",
+            "owner": "knit.demo.PerformanceMonitor",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "PerformanceMonitor.getOperationCount",
+            "needs": "int",
+            "owner": "knit.demo.PerformanceMonitor",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Info.copy",
+            "needs": "knit.demo.CommandResult$Info",
+            "owner": "knit.demo.CommandResult$Info",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Info.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.CommandResult$Info",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Info.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.CommandResult$Info",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "LogCommand.formatCommitLog",
+            "needs": "java.lang.String",
+            "owner": "knit.demo.LogCommand",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "PerformanceMonitor$getSlowestOperations$$inlined$sortedByDescending$1.compare",
+            "needs": "int",
+            "owner": "knit.demo.PerformanceMonitor$getSlowestOperations$$inlined$sortedByDescending$1",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Error.copy",
+            "needs": "knit.demo.CommandResult$Error",
+            "owner": "knit.demo.CommandResult$Error",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Error.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.CommandResult$Error",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommandResult$Error.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.CommandResult$Error",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Commit$Companion.formatCommit",
+            "needs": "byte[]",
+            "owner": "knit.demo.Commit$Companion",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Tree$Companion$formatTree$$inlined$sortedBy$1.compare",
+            "needs": "int",
+            "owner": "knit.demo.Tree$Companion$formatTree$$inlined$sortedBy$1",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Tree.getEntries",
+            "needs": "java.util.List",
+            "owner": "knit.demo.Tree",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker$getRecentChanges$$inlined$sortedByDescending$1.compare",
+            "needs": "int",
+            "owner": "knit.demo.ReferenceHistoryTracker$getRecentChanges$$inlined$sortedByDescending$1",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "EventBus.getRecentEvents",
+            "needs": "java.util.List",
+            "owner": "knit.demo.EventBus",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "EventBus.getAllEvents",
+            "needs": "java.util.List",
+            "owner": "knit.demo.EventBus",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "Tree$Companion.formatTree",
+            "needs": "byte[]",
+            "owner": "knit.demo.Tree$Companion",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "EventListenerManager.getSystemHealthReport",
+            "needs": "java.util.Map",
+            "owner": "knit.demo.EventListenerManager",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "CommitCommand.buildTreeFromIndex",
+            "needs": "knit.demo.Tree",
+            "owner": "knit.demo.CommitCommand",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker$RefChange.copy",
+            "needs": "knit.demo.ReferenceHistoryTracker$RefChange",
+            "owner": "knit.demo.ReferenceHistoryTracker$RefChange",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker$RefChange.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.ReferenceHistoryTracker$RefChange",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ReferenceHistoryTracker$RefChange.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.ReferenceHistoryTracker$RefChange",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer$ObjectGraph.copy",
+            "needs": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "owner": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer$ObjectGraph.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "ObjectGraphAnalyzer$ObjectGraph.equals",
+            "needs": "boolean",
+            "owner": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "RepositoryStats.copy",
+            "needs": "knit.demo.RepositoryStats",
+            "owner": "knit.demo.RepositoryStats",
+            "module": "demo-jvm"
+        },
+        {
+            "id": "RepositoryStats.hashCode",
+            "needs": "int",
+            "owner": "knit.demo.RepositoryStats",
+            "module": "demo-jvm"
+        }
+    ],
+    "edges": [
+        {
+            "from": "ObjectIndexService.<init>",
+            "to": "knit.demo.ObjectIndexService",
+            "kind": "provides"
+        },
+        {
+            "from": "ObjectIndexService.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "ObjectIndexService.findCommitsByAuthor",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectIndexService.findTreesByDirectory",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectIndexService.findBlobsByFilename",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "AuditLogger.<init>",
+            "to": "knit.demo.AuditLogger",
+            "kind": "provides"
+        },
+        {
+            "from": "AuditLogger.<init>",
+            "to": "knit.demo.EventBus",
+            "kind": "requires"
+        },
+        {
+            "from": "AuditLogger.getAuditLog",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "AuditLogger.getRecentLogEntries",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "AuditLogger.exportLog",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "DirectoryNode.listChildren",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.<init>",
+            "to": "knit.demo.MemoryReferenceManager",
+            "kind": "provides"
+        },
+        {
+            "from": "MemoryReferenceManager.createBranch",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.deleteBranch",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.createTag",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.deleteTag",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.updateHead",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.getCurrentCommitSha",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.getAllRefs",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.resolveRef",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryReferenceManager.isRefNameValid",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceEvent.copy",
+            "to": "knit.demo.ReferenceEvent",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceEvent.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceEvent.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Success.copy",
+            "to": "knit.demo.CommandResult$Success",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Success.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Success.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectValidator.<init>",
+            "to": "knit.demo.ObjectValidator",
+            "kind": "provides"
+        },
+        {
+            "from": "ObjectValidator.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "ObjectValidator.<init>",
+            "to": "knit.demo.ObjectIndexService",
+            "kind": "requires"
+        },
+        {
+            "from": "ObjectValidator.validateObject",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectValidator.validateTree",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectValidator.validateCommit",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "provides"
+        },
+        {
+            "from": "MemoryFileSystem.getCurrentPath",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.resolvePath",
+            "to": "knit.demo.FileSystemNode",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.findParentDirectory",
+            "to": "knit.demo.DirectoryNode",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.createFile",
+            "to": "knit.demo.FileNode",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.createDirectory",
+            "to": "knit.demo.DirectoryNode",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.delete",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.readFile",
+            "to": "byte[]",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryFileSystem.listDirectory",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.<init>",
+            "to": "knit.demo.ObjectGraphAnalyzer",
+            "kind": "provides"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.<init>",
+            "to": "knit.demo.ObjectValidator",
+            "kind": "requires"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.buildObjectGraph",
+            "to": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.findDanglingObjects",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.findOrphanCommits",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectGraphAnalyzer.calculateRepositoryStats",
+            "to": "knit.demo.RepositoryStats",
+            "kind": "needs"
+        },
+        {
+            "from": "StatusCommand.<init>",
+            "to": "knit.demo.StatusCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "StatusCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "StatusCommand.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "StatusCommand.<init>",
+            "to": "knit.demo.StagingArea",
+            "kind": "requires"
+        },
+        {
+            "from": "StatusCommand.<init>",
+            "to": "knit.demo.MemoryReferenceManager",
+            "kind": "requires"
+        },
+        {
+            "from": "StatusCommand.getCurrentBranch",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "StatusCommand.findUntrackedFiles",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "StatusCommand.isTracked",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "GitObject.calculateSha",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "GitObject.sha_delegate$lambda$0",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "FileSystemEvent.copy",
+            "to": "knit.demo.FileSystemEvent",
+            "kind": "needs"
+        },
+        {
+            "from": "FileSystemEvent.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "FileSystemEvent.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "Ref.isBranch",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "Ref.isTag",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "Ref.getShortName",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectStoreEvent.copy",
+            "to": "knit.demo.ObjectStoreEvent",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectStoreEvent.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectStoreEvent.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "provides"
+        },
+        {
+            "from": "MemoryObjectStore.store",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.exists",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.getAllObjects",
+            "to": "java.util.Set",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.getObjectsByType",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.delete",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.getSize",
+            "to": "java.lang.Long",
+            "kind": "needs"
+        },
+        {
+            "from": "MemoryObjectStore.getObjectCount",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker.<init>",
+            "to": "knit.demo.ReferenceHistoryTracker",
+            "kind": "provides"
+        },
+        {
+            "from": "ReferenceHistoryTracker.<init>",
+            "to": "knit.demo.MemoryReferenceManager",
+            "kind": "requires"
+        },
+        {
+            "from": "ReferenceHistoryTracker.<init>",
+            "to": "knit.demo.EventBus",
+            "kind": "requires"
+        },
+        {
+            "from": "ReferenceHistoryTracker.getRefHistory",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker.getAllHistory",
+            "to": "java.util.Map",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker.getRecentChanges",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "RmCommand.<init>",
+            "to": "knit.demo.RmCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "RmCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "Blob.asString",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "Commit.parseCommit",
+            "to": "kotlin.Triple",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandRegistry.<init>",
+            "to": "knit.demo.CommandRegistry",
+            "kind": "provides"
+        },
+        {
+            "from": "CommandRegistry.<init>",
+            "to": "java.util.List",
+            "kind": "requires"
+        },
+        {
+            "from": "CommandRegistry.<init>",
+            "to": "java.util.List",
+            "kind": "requires"
+        },
+        {
+            "from": "CommandRegistry.getCommand",
+            "to": "java.lang.Object",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandRegistry.executeCommand",
+            "to": "knit.demo.CommandResult",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandRegistry.getHelp",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "MonitorComponent.<init>",
+            "to": "knit.demo.MonitorComponent",
+            "kind": "provides"
+        },
+        {
+            "from": "MonitorComponent.<init>",
+            "to": "knit.demo.EventBus",
+            "kind": "requires"
+        },
+        {
+            "from": "MonitorComponent.<init>",
+            "to": "knit.demo.AuditLogger",
+            "kind": "requires"
+        },
+        {
+            "from": "MonitorComponent.<init>",
+            "to": "knit.demo.PerformanceMonitor",
+            "kind": "requires"
+        },
+        {
+            "from": "MonitorComponent.<init>",
+            "to": "knit.demo.ObjectGraphAnalyzer",
+            "kind": "requires"
+        },
+        {
+            "from": "MemoryStoreComponent.<init>",
+            "to": "knit.demo.MemoryStoreComponent",
+            "kind": "provides"
+        },
+        {
+            "from": "MemoryStoreComponent.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "MemoryStoreComponent.<init>",
+            "to": "knit.demo.MemoryReferenceManager",
+            "kind": "requires"
+        },
+        {
+            "from": "MemoryStoreComponent.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "SampleCli.<init>",
+            "to": "knit.demo.SampleCli",
+            "kind": "provides"
+        },
+        {
+            "from": "SampleCli.<init>",
+            "to": "knit.demo.MemoryStoreComponent",
+            "kind": "requires"
+        },
+        {
+            "from": "SampleCli.<init>",
+            "to": "knit.demo.MonitorComponent",
+            "kind": "requires"
+        },
+        {
+            "from": "StagingArea.<init>",
+            "to": "knit.demo.StagingArea",
+            "kind": "provides"
+        },
+        {
+            "from": "StagingArea.getStagedFiles",
+            "to": "java.util.Map",
+            "kind": "needs"
+        },
+        {
+            "from": "StagingArea.isEmpty",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "StagingArea.getStagedFileCount",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "CatCommand.<init>",
+            "to": "knit.demo.CatCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "CatCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "EchoCommand.<init>",
+            "to": "knit.demo.EchoCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "EchoCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "TreeEntry.copy",
+            "to": "knit.demo.TreeEntry",
+            "kind": "needs"
+        },
+        {
+            "from": "TreeEntry.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "TreeEntry.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "AddCommand.<init>",
+            "to": "knit.demo.AddCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "AddCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "AddCommand.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "AddCommand.<init>",
+            "to": "knit.demo.StagingArea",
+            "kind": "requires"
+        },
+        {
+            "from": "TouchCommand.<init>",
+            "to": "knit.demo.TouchCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "TouchCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "GitCommandEvent.copy",
+            "to": "knit.demo.GitCommandEvent",
+            "kind": "needs"
+        },
+        {
+            "from": "GitCommandEvent.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "GitCommandEvent.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "PerformanceMonitor.<init>",
+            "to": "knit.demo.PerformanceMonitor",
+            "kind": "provides"
+        },
+        {
+            "from": "PerformanceMonitor.<init>",
+            "to": "knit.demo.EventBus",
+            "kind": "requires"
+        },
+        {
+            "from": "PerformanceMonitor.measureOperation",
+            "to": "java.lang.Object",
+            "kind": "needs"
+        },
+        {
+            "from": "PerformanceMonitor.getAverageTime",
+            "to": "double",
+            "kind": "needs"
+        },
+        {
+            "from": "PerformanceMonitor.getSlowestOperations",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "PerformanceMonitor.getTotalOperations",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "PerformanceMonitor.getOperationCount",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Info.copy",
+            "to": "knit.demo.CommandResult$Info",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Info.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Info.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "LogCommand.<init>",
+            "to": "knit.demo.LogCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "LogCommand.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "LogCommand.<init>",
+            "to": "knit.demo.MemoryReferenceManager",
+            "kind": "requires"
+        },
+        {
+            "from": "LogCommand.formatCommitLog",
+            "to": "java.lang.String",
+            "kind": "needs"
+        },
+        {
+            "from": "MkdirCommand.<init>",
+            "to": "knit.demo.MkdirCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "MkdirCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "PerformanceMonitor$getSlowestOperations$$inlined$sortedByDescending$1.compare",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Error.copy",
+            "to": "knit.demo.CommandResult$Error",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Error.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "CommandResult$Error.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "Commit$Companion.formatCommit",
+            "to": "byte[]",
+            "kind": "needs"
+        },
+        {
+            "from": "Tree$Companion$formatTree$$inlined$sortedBy$1.compare",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "Tree.getEntries",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker$getRecentChanges$$inlined$sortedByDescending$1.compare",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "PwdCommand.<init>",
+            "to": "knit.demo.PwdCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "PwdCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "EventBus.<init>",
+            "to": "knit.demo.EventBus",
+            "kind": "provides"
+        },
+        {
+            "from": "EventBus.getRecentEvents",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "EventBus.getAllEvents",
+            "to": "java.util.List",
+            "kind": "needs"
+        },
+        {
+            "from": "CdCommand.<init>",
+            "to": "knit.demo.CdCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "CdCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "Tree$Companion.formatTree",
+            "to": "byte[]",
+            "kind": "needs"
+        },
+        {
+            "from": "EventListenerManager.<init>",
+            "to": "knit.demo.EventListenerManager",
+            "kind": "provides"
+        },
+        {
+            "from": "EventListenerManager.<init>",
+            "to": "knit.demo.EventBus",
+            "kind": "requires"
+        },
+        {
+            "from": "EventListenerManager.<init>",
+            "to": "knit.demo.AuditLogger",
+            "kind": "requires"
+        },
+        {
+            "from": "EventListenerManager.<init>",
+            "to": "knit.demo.PerformanceMonitor",
+            "kind": "requires"
+        },
+        {
+            "from": "EventListenerManager.getSystemHealthReport",
+            "to": "java.util.Map",
+            "kind": "needs"
+        },
+        {
+            "from": "CommitCommand.<init>",
+            "to": "knit.demo.CommitCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "CommitCommand.<init>",
+            "to": "knit.demo.MemoryObjectStore",
+            "kind": "requires"
+        },
+        {
+            "from": "CommitCommand.<init>",
+            "to": "knit.demo.StagingArea",
+            "kind": "requires"
+        },
+        {
+            "from": "CommitCommand.<init>",
+            "to": "knit.demo.MemoryReferenceManager",
+            "kind": "requires"
+        },
+        {
+            "from": "CommitCommand.<init>",
+            "to": "knit.demo.ReferenceHistoryTracker",
+            "kind": "requires"
+        },
+        {
+            "from": "CommitCommand.buildTreeFromIndex",
+            "to": "knit.demo.Tree",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker$RefChange.copy",
+            "to": "knit.demo.ReferenceHistoryTracker$RefChange",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker$RefChange.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "ReferenceHistoryTracker$RefChange.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "LsCommand.<init>",
+            "to": "knit.demo.LsCommand",
+            "kind": "provides"
+        },
+        {
+            "from": "LsCommand.<init>",
+            "to": "knit.demo.MemoryFileSystem",
+            "kind": "requires"
+        },
+        {
+            "from": "ObjectGraphAnalyzer$ObjectGraph.copy",
+            "to": "knit.demo.ObjectGraphAnalyzer$ObjectGraph",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectGraphAnalyzer$ObjectGraph.hashCode",
+            "to": "int",
+            "kind": "needs"
+        },
+        {
+            "from": "ObjectGraphAnalyzer$ObjectGraph.equals",
+            "to": "boolean",
+            "kind": "needs"
+        },
+        {
+            "from": "RepositoryStats.copy",
+            "to": "knit.demo.RepositoryStats",
+            "kind": "needs"
+        },
+        {
+            "from": "RepositoryStats.hashCode",
+            "to": "int",
+            "kind": "needs"
+        }
+    ],
+    "metrics": {
+        "generatedAt": "2025-08-30T11:37:40.312740Z",
+        "nodeCount": 188,
+        "edgeCount": 177
+    }
+}

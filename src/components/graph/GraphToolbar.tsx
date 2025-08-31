@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/tooltip";
 
 export function GraphToolbar() {
-  const { currentGraph } = useGraphStore();
+  const { currentGraph, selectedNodes } = useGraphStore();
   const canvasRef = useRef<HTMLDivElement>(null);
 
   if (!currentGraph) return null;
@@ -68,6 +68,11 @@ export function GraphToolbar() {
           <Badge variant="outline" className="text-xs">
             {visibleEdges} edges
           </Badge>
+          {selectedNodes.size > 0 && (
+            <Badge variant="secondary" className="text-xs">
+              {selectedNodes.size} selected
+            </Badge>
+          )}
         </div>
 
         <Separator orientation="vertical" className="h-4" />
